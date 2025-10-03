@@ -3,7 +3,7 @@ export const corsConfig = {
     const allowedOrigins = [
       'http://localhost:4200',
       'http://localhost:3000',
-      'https://api-mantenedor.onrender.com'
+      'https://mantenedor-back-nest-2.onrender.com'
     ];
     
     // Permitir requests sin origin (ej: mobile apps, Postman)
