@@ -3,7 +3,8 @@ export const corsConfig = {
     const allowedOrigins = [
       'http://localhost:4200',
       'http://localhost:3000',
-      'https://mantenedor-back-nest-2.onrender.com'
+      'https://mantenedor-back-nest-2.onrender.com',
+      'https://mantenedor-front-bice.vercel.app'
     ];
     
     // Permitir requests sin origin (ej: mobile apps, Postman)

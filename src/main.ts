@@ -11,16 +11,34 @@ async function bootstrap() {
 
   // Middleware adicional para manejar preflight requests
   app.use((req: Request, res: Response, next: NextFunction) => {
-    console.log(`🌐 ${req.method} ${req.path} - Origin: ${req.headers.origin}`);
+    const allowedOrigins = [
+      'http://localhost:4200',
+      'http://localhost:3000',
+      'https://mantenedor-back-nest-2.onrender.com',
+      'https://mantenedor-front-bice.vercel.app'
+    ];
+    
+    const origin = req.headers.origin;
+    console.log(`🌐 ${req.method} ${req.path} - Origin: ${origin}`);
+    
+    // Configurar headers CORS para todas las peticiones
+    if (origin && allowedOrigins.includes(origin)) {
+      res.header('Access-Control-Allow-Origin', origin);
+      res.header('Access-Control-Allow-Credentials', 'true');
+    }
     
     if (req.method === 'OPTIONS') {
       console.log('🔄 Procesando preflight request');
-      res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-      res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, Origin, X-Requested-With');
-      res.header('Access-Control-Allow-Credentials', 'true');
-      res.header('Access-Control-Max-Age', '86400');
-      return res.status(204).end();
+      if (origin && allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, Origin, X-Requested-With');
+        res.header('Access-Control-Allow-Credentials', 'true');
+        res.header('Access-Control-Max-Age', '86400');
+        return res.status(204).end();
+      } else {
+        return res.status(403).json({ error: 'CORS: Origin not allowed' });
+      }
     }
     next();
   });
