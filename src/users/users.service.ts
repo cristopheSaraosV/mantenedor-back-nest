@@ -10,11 +10,11 @@ import { User } from './entities/user.entity/user.entity';
 export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
-  async create(dto: CreateUserDto) {
+  async create(dto: CreateUserDto, role: 'user' | 'admin' = 'user') {
     const exists = await this.repo.findOne({ where: { email: dto.email.toLowerCase() } });
     if (exists) throw new BadRequestException('Email ya registrado');
     const passwordHash = await bcrypt.hash(dto.password, 10);
-    const user = this.repo.create({ email: dto.email, name: dto.name, passwordHash });
+    const user = this.repo.create({ email: dto.email, name: dto.name, passwordHash, role });
     return this.repo.save(user);
   }
 

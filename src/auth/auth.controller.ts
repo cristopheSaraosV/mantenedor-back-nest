@@ -8,10 +8,6 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthController {
 constructor(private auth: AuthService, private users: UsersService) {}
 
-  @Post('register')
-  register(@Body() dto: CreateUserDto) {
-    return this.users.create(dto);
-  }
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
