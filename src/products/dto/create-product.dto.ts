@@ -1,4 +1,5 @@
 import { IsString, IsNumber, IsOptional, IsBoolean, Min, IsUrl } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateProductDto {
   @IsString()
@@ -9,10 +10,12 @@ export class CreateProductDto {
   description?: string;
 
   @IsOptional()
+  @Transform(({ value }) => value ? +value : null)
   @IsNumber()
   @Min(0)
   price?: number;
 
+  @Transform(({ value }) => +value)
   @IsNumber()
   @Min(0)
   stock: number;
@@ -38,9 +41,11 @@ export class CreateProductDto {
   isActive?: boolean;
 
   @IsOptional()
+  @Transform(({ value }) => value ? +value : 0)
   @IsNumber()
   sortOrder?: number;
 
+  @Transform(({ value }) => +value)
   @IsNumber()
   productTypeId: number;
 }
