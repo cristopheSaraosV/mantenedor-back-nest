@@ -3,6 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
+import { CategoriesModule } from './categories/categories.module';
+import { ProductTypesModule } from './product-types/product-types.module';
 import { User } from './users/entities/user.entity/user.entity';
 import { UsersService } from './users/users.service';
 
@@ -22,6 +25,9 @@ import { UsersService } from './users/users.service';
     TypeOrmModule.forFeature([User]),
     UsersModule,
     AuthModule,
+    ProductsModule,
+    CategoriesModule,
+    ProductTypesModule,
   ],
 })
 export class AppModule implements OnModuleInit {
