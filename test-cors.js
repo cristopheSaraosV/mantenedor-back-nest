@@ -39,7 +39,8 @@ const makeRequest = (url, method = 'GET') => {
     const options = {
       method,
       headers: {
-        'Origin': 'http://localhost:4200',
+        'Origin': 'http://localhost:51011',
+        // 'Origin': 'http://localhost:4200',
         'Access-Control-Request-Method': 'PATCH',
         'Access-Control-Request-Headers': 'Content-Type, Authorization'
       }

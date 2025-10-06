@@ -9,6 +9,7 @@ async function bootstrap() {
   // Configuración CORS robusta
   app.enableCors({
     origin: [
+      'http://localhost:51011',
       'http://localhost:4200',
       'http://localhost:3000',
       'https://mantenedor-back-nest-2.onrender.com',
